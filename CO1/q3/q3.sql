@@ -10,7 +10,7 @@ select * from employee;#q1
 select empno,salary from employee;#q2
 select avg(salary)from employee;#q3
 select count(empno) from employee;#q4
-select distinct * from employee;#q5
+select count(distinct emp_name) from employee;#q5
 select sum(salary),emp_name,count(*) as occurences from employee group by emp_name having(count(*)>1);#q6
 select sum(salary) from employee where salary>120000;#q7
 select * from employee order by emp_name desc;#q8
