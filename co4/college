@@ -1,0 +1,125 @@
+NOSQL
+Create a database named college and then create a collection named studlist.Insert some values into it [You can use the data in test.json file].
+
+
+
+> use college
+switched to db college
+> db.studlist.find().pretty()
+{
+        "_id" : ObjectId("628deea121b5af8b4595d7c8"),
+        "fname" : "jeslin",
+        "lname" : "johnson",
+        "grade" : "A+",
+        "mark" : 95,
+        "contact" : 7025585163,
+        "location" : "thrissur",
+        "department" : "MCA",
+        "gender" : "female"
+}
+{
+        "_id" : ObjectId("628def3e21b5af8b4595d7c9"),
+        "fname" : "jeslin",
+        "lname" : "johnson",
+        "grade" : "A+",
+        "mark" : 95,
+        "contact" : 7025585163,
+        "location" : "thrissur",
+        "department" : "MCA",
+        "gender" : "male"
+}
+{
+        "_id" : ObjectId("628def9421b5af8b4595d7ca"),
+        "fname" : "vinay",
+        "lname" : "george",
+        "grade" : "A",
+        "mark" : 85,
+        "contact" : 7078885163,
+        "location" : "ekm",
+        "department" : "Mech",
+        "gender" : "male"
+}
+{
+        "_id" : ObjectId("628df06721b5af8b4595d7cb"),
+        "fname" : "Juliniya",
+        "lname" : "joseph",
+        "grade" : "A+",
+        "mark" : 98,
+        "contact" : 8547097823,
+        "location" : "kollam",
+        "department" : "CS",
+        "gender" : "female"
+}
+{
+        "_id" : ObjectId("628df11e21b5af8b4595d7cc"),
+        "fname" : "cathy",
+        "lname" : "henry",
+        "grade" : "B",
+        "mark" : 75,
+        "contact" : 7853497823,
+        "location" : "tvm",
+        "department" : "Mca",
+        "gender" : "female"
+}
+{
+        "_id" : ObjectId("628df16221b5af8b4595d7cd"),
+        "fname" : "jwala",
+        "lname" : "grace",
+        "grade" : "B+",
+        "mark" : 85,
+        "contact" : 7853497823,
+        "location" : "kollam",
+        "department" : "Mca",
+        "gender" : "female"
+}
+
+Write a MongoDB Query to:
+
+
+1. Display name (both fname and lname) and mark of all female students in MCA  department.
+>db.studlist.find({department:"Mca",gender:"female"},{fname:1,lname:1,mark:1,_id:0}).pretty();
+{ "fname" : "cathy", "lname" : "henry", "mark" : 75 }
+{ "fname" : "jwala", "lname" : "grace", "mark" : 85 }
+
+2.Display the details of student who secured highest mark in the course MCA
+> db.studlist.aggregate([{$group:{_id:0,"max mark  is ":{$max:"$mark"}}}])
+{ "_id" : 0, "max mark  is " : 98 }
+
+3.Display all male students who secured A+ grade.
+> db.studlist.find({grade:"A+",gender:"male"},{fname:1,lname:1,_id:0})
+{ "fname" : "jeslin", "lname" : "johnson" }
+
+4.Display the names of the top three students in Mechanical department
+> db.studlist.find({department:"mech"},{_id:0}).sort({mark:-1}).limit(3)
+{ "fname" : "vinay", "lname" : "george", "grade" : "A", "mark" : 85, "contact" : 7078885163, "location" : "ekm", "department" : "Mech", "gender" : "male" }
+
+5. Display the details of female students [fname,lname,grade,mark,contact] who achieved a mark more than 90
+>db.studlist.find({mark:{$gt:90},gender:"female"},{fname:1,lname:1,grade:1,mark:1,contact:1})
+{ "_id" : ObjectId("628deea121b5af8b4595d7c8"), "fname" : "jeslin", "lname" : "johnson", "grade" : "A+", "mark" : 95, "contact" : 7025585163 }
+{ "_id" : ObjectId("628df06721b5af8b4595d7cb"), "fname" : "Juliniya", "lname" : "joseph", "grade" : "A+", "mark" : 98, "contact" : 8547097823 }
+
+6.Display the details of students who secured mark,more than 80 but less than 90
+>db.studlist.find({$and:[{mark:{$gt:80}},{mark:{$lt:90}}}},{_id:0})
+{"fname":"vinay", "lname":"george","grade":"grade" : "A","mark" : 85, "contact" : 7078885163,"location" : "ekm","department" : "Mech","gender" : "male" }
+{"fname" : "jwala", "lname" : "grace", "grade" : "B+", "mark" : 85, "contact" : 7853497823, "location" : "kollam", "department" : "Mca", "gender" : "female"}
+
+7. Display the details of students whose name start with "V"
+>db.studlist.find({fname:{$regex:"V"}},{_id:0})
+ "fname" : "vinay", "lname" : "george", "grade" : " ,"mark" : 85, "contact" : 7078897823","location" : "ekm", "department" : "Mech", "gender" : "male"
+ 
+ 8.Display all students from kollam
+ > db.studlist.find({"location":"kollam"},{_id:0})
+ "fname" : "Juliniya","lname" : "joseph","grade" : "A+","mark" : 98,"contact" : 8547097823,"location" : "kollam", "department" : "CS","gender" : "female"
+ "fname" : "jwala", "lname" : "grace", "grade" : "B+", "mark" : 85, "contact" : 7853497823, "location" : "kollam", "department" : "Mca", "gender" : "female"
+
+9.Display all students who does not belong to neither kollam nor Thiruvanthapuram
+>db.studlist.find({$and:[{"location":{$ne:"kollam"}},{"location":{$ne:"tvm"}}]},{_id:0})
+{"fname" : "jeslin","lname" : "johnson", "grade" : "A+", "mark" : 95, "contact" : 7025585163, "location" : "thrissur", "department" : "MCA","gender" : "female"}
+{"fname" : "jeslin", "lname" : "johnson","grade" : "A+","mark" : 95,"contact" : 7025585163, "location" : "thrissur","department" : "MCA","gender" : "male"}
+{"fname" : "vinay", "lname" : "george", "grade" : "A", "mark" : 85 ,"contact" : 7078885163, "location" : "ekm", "department" : "Mech", "gender" : "male"}
+
+10.Display all the female students who belong to either kollam or Thiruvanthapuram
+>db.studlist.find({$or:[{"location":"kollam"},{"location":"tvm"}]},{_id:0})
+{"fname" : "Juliniya", "lname" : "joseph", "grade" : "A+", "mark" : 98, "contact" : 8547097823, "location" : "kollam", "department" : "CS", "gender" : "female"}
+{"fname" : "cathy", "lname" : "henry", "grade" : "B",  "mark" : 75, "contact" : 7853497823, "location" : "tvm", "department" : "Mca","gender" : "female"}
+{"fname" : "jwala","lname" : "grace", "grade" : "B+", "mark" : 85, "contact" : 7853497823, "location" : "kollam", "department" : "Mca", "gender" : "female"}
