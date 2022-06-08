@@ -1,0 +1,159 @@
+> show dbs
+admin     0.000GB
+college   0.000GB
+colleges  0.000GB
+config    0.000GB
+local     0.000GB
+> use student
+switched to db student
+> db.student1.insert({SRN:101,SName:'dwany',degree:"mca",sem:2,cgpa:7.5})
+WriteResult({ "nInserted" : 1 })
+>  db.student1.insert({SRN:102,SName:'anika',degree:"mca",sem:4,cgpa:6.5})
+WriteResult({ "nInserted" : 1 })
+> db.student1.insert({SRN:103,SName:'vishnu',degree:"bca",sem:3,cgpa:6.3})
+WriteResult({ "nInserted" : 1 })
+> db.student1.insert({SRN:104,SName:'vaishnav',degree:"bca",sem:6,cgpa:6.5})
+WriteResult({ "nInserted" : 1 })
+> db.student1.insert({SRN:105,SName:'nova',degree:"bca",sem:5,cgpa:9.5})
+WriteResult({ "nInserted" : 1 })
+> db.student1.insert({SRN:106,SName:'jusaina',degree:"mca",sem:6,cgpa:6.8})
+WriteResult({ "nInserted" : 1 })
+> db.student1.insert({SRN:107,SName:'arun',degree:"bca",sem:5,cgpa:6.8})
+WriteResult({ "nInserted" : 1 })
+> db.student1.insert({SRN:108,SName:'ajmal',degree:"mca",sem:6,cgpa:9.5})
+WriteResult({ "nInserted" : 1 })
+> db.student1.insert({SRN:109,SName:'anusree',degree:"mca",sem:4,cgpa:9.3})
+WriteResult({ "nInserted" : 1 })
+> db.student1.insert({SRN:110,SName:'sruthi',degree:"bca",sem:5,cgpa:9.9})
+WriteResult({ "nInserted" : 1 })
+1)Display all the documents.
+> db.student1.find({},{_id:0})
+{ "SRN" : 101, "SName" : "dwany", "degree" : "mca", "sem" : 2, "cgpa" : 7.5 }
+{ "SRN" : 102, "SName" : "anika", "degree" : "mca", "sem" : 4, "cgpa" : 6.5 }
+{ "SRN" : 103, "SName" : "vishnu", "degree" : "bca", "sem" : 3, "cgpa" : 6.3 }
+{ "SRN" : 104, "SName" : "vaishnav", "degree" : "bca", "sem" : 6, "cgpa" : 6.5 }
+{ "SRN" : 105, "SName" : "nova", "degree" : "bca", "sem" : 5, "cgpa" : 9.5 }
+{ "SRN" : 106, "SName" : "jusaina", "degree" : "mca", "sem" : 6, "cgpa" : 6.8 }
+{ "SRN" : 107, "SName" : "arun", "degree" : "bca", "sem" : 5, "cgpa" : 6.8 }
+{ "SRN" : 108, "SName" : "ajmal", "degree" : "mca", "sem" : 6, "cgpa" : 9.5 }
+{ "SRN" : 109, "SName" : "anusree", "degree" : "mca", "sem" : 4, "cgpa" : 9.3 }
+{ "SRN" : 110, "SName" : "sruthi", "degree" : "bca", "sem" : 5, "cgpa" : 9.9 }
+2)Display all the students in bca.
+> db.student1.find({degree:"bca"},{_id:0})
+{ "SRN" : 103, "SName" : "vishnu", "degree" : "bca", "sem" : 3, "cgpa" : 6.3 }
+{ "SRN" : 104, "SName" : "vaishnav", "degree" : "bca", "sem" : 6, "cgpa" : 6.5 }
+{ "SRN" : 105, "SName" : "nova", "degree" : "bca", "sem" : 5, "cgpa" : 9.5 }
+{ "SRN" : 107, "SName" : "arun", "degree" : "bca", "sem" : 5, "cgpa" : 6.8 }
+{ "SRN" : 110, "SName" : "sruthi", "degree" : "bca", "sem" : 5, "cgpa" : 9.9 }
+3)Display all the students in ascending order.
+> db.student1.find({},{_id:0}).sort({SName:1})
+{ "SRN" : 108, "SName" : "ajmal", "degree" : "mca", "sem" : 6, "cgpa" : 9.5 }
+{ "SRN" : 102, "SName" : "anika", "degree" : "mca", "sem" : 4, "cgpa" : 6.5 }
+{ "SRN" : 109, "SName" : "anusree", "degree" : "mca", "sem" : 4, "cgpa" : 9.3 }
+{ "SRN" : 107, "SName" : "arun", "degree" : "bca", "sem" : 5, "cgpa" : 6.8 }
+{ "SRN" : 101, "SName" : "dwany", "degree" : "mca", "sem" : 2, "cgpa" : 7.5 }
+{ "SRN" : 106, "SName" : "jusaina", "degree" : "mca", "sem" : 6, "cgpa" : 6.8 }
+{ "SRN" : 105, "SName" : "nova", "degree" : "bca", "sem" : 5, "cgpa" : 9.5 }
+{ "SRN" : 110, "SName" : "sruthi", "degree" : "bca", "sem" : 5, "cgpa" : 9.9 }
+{ "SRN" : 104, "SName" : "vaishnav", "degree" : "bca", "sem" : 6, "cgpa" : 6.5 }
+{ "SRN" : 103, "SName" : "vishnu", "degree" : "bca", "sem" : 3, "cgpa" : 6.3 }
+4)Display first five students
+> db.student1.find({},{_id:0}).limit(5)
+{ "SRN" : 101, "SName" : "dwany", "degree" : "mca", "sem" : 2, "cgpa" : 7.5 }
+{ "SRN" : 102, "SName" : "anika", "degree" : "mca", "sem" : 4, "cgpa" : 6.5 }
+{ "SRN" : 103, "SName" : "vishnu", "degree" : "bca", "sem" : 3, "cgpa" : 6.3 }
+{ "SRN" : 104, "SName" : "vaishnav", "degree" : "bca", "sem" : 6, "cgpa" : 6.5 }
+{ "SRN" : 105, "SName" : "nova", "degree" : "bca", "sem" : 5, "cgpa" : 9.5 }
+5)Display students 5,6,7
+> db.student1.find({},{_id:0}).skip(4).limit(3).pretty()
+{
+        "SRN" : 105,
+        "SName" : "nova",
+        "degree" : "bca",
+        "sem" : 5,
+        "cgpa" : 9.5
+}
+{
+        "SRN" : 106,
+        "SName" : "jusaina",
+        "degree" : "mca",
+        "sem" : 6,
+        "cgpa" : 6.8
+}
+{
+        "SRN" : 107,
+        "SName" : "arun",
+        "degree" : "bca",
+        "sem" : 5,
+        "cgpa" : 6.8
+}
+6) List the degree of student “dwany”.
+> db.student1.find({"SName":"dwany"},{_id:0}).pretty()
+{
+        "SRN" : 101,
+        "SName" : "dwany",
+        "degree" : "mca",
+        "sem" : 2,
+        "cgpa" : 7.5
+}
+> db.student1.find({"SName":"dwany"},{"degree":1,_id:0}).pretty()
+{ "degree" : "mca" }
+7)Display student details of 5,6,7 in descending  order of percentage .
+> db.student1.find({},{_id:0}).skip(4).limit(3).sort({"cgpa":-1}).pretty()
+{
+        "SRN" : 101,
+        "SName" : "dwany",
+        "degree" : "mca",
+        "sem" : 2,
+        "cgpa" : 7.5
+}
+{
+        "SRN" : 106,
+        "SName" : "jusaina",
+        "degree" : "mca",
+        "sem" : 6,
+        "cgpa" : 6.8
+}
+{
+        "SRN" : 107,
+        "SName" : "arun",
+        "degree" : "bca",
+        "sem" : 5,
+        "cgpa" : 6.8
+}
+
+8)Display the number of students in ‘bca’
+> db.student1.count({"degree":"bca"})
+5
+9)Display all the degrees without _id.
+> db.student1.find({},{degree:1,_id:0})
+{ "degree" : "mca" }
+{ "degree" : "mca" }
+{ "degree" : "bca" }
+{ "degree" : "bca" }
+{ "degree" : "bca" }
+{ "degree" : "mca" }
+{ "degree" : "bca" }
+{ "degree" : "mca" }
+{ "degree" : "mca" }
+{ "degree" : "bca" }
+10)Display all the distinct degree.
+> db.student1.distinct("degree")
+[ "bca", "mca" ]
+11)Display all the bca students with cgpa greater than 6 and less than 7.5.
+> db.student1.find({"degree":"bca",$and:[{"cgpa":{$gt:6}},{"cgpa":{$lt:7.5}}]},{_id:0})
+{ "SRN" : 103, "SName" : "vishnu", "degree" : "bca", "sem" : 3, "cgpa" : 6.3 }
+{ "SRN" : 104, "SName" : "vaishnav", "degree" : "bca", "sem" : 6, "cgpa" : 6.5 }
+{ "SRN" : 107, "SName" : "arun", "degree" : "bca", "sem" : 5, "cgpa" : 6.8 }
+> db.student1.find({"degree":"bca","sem":6},{_id:0})
+{ "SRN" : 104, "SName" : "vaishnav", "degree" : "bca", "sem" : 6, "cgpa" : 6.5 }
+12)Display all the students in bca and in 6th sem.
+> db.student1.find({"degree":"bca","sem":6}).pretty()
+{
+        "_id" : ObjectId("62a0c4169c9a83a674260266"),
+        "SRN" : 104,
+        "SName" : "vaishnav",
+        "degree" : "bca",
+        "sem" : 6,
+        "cgpa" : 6.5
+}
