@@ -1,1 +1,35 @@
 
+create database college;
+use college;
+create table student(rollno int not null,name varchar(20),address varchar(20),totalmarks int,primary key(rollno));
+
+create table course (cid int not null ,coursename varchar(20),fees int,primary key(cid));
+
+create table admission(rollno int not null,cid int not null,sem varchar(20),
+foreign key(rollno) references student(rollno) on delete cascade,
+foreign key(cid) references course(cid) on delete cascade);
+
+insert into student values(101,"anika","varkala",40),
+(102,"ammu","tvm",38),
+(103,"biju","kollam",49);
+insert into student values(104,"appu","tvm",30),(105,"achu","tvm",44);
+insert into course values ( 1,"bca",1500),
+(2,"bba",800),
+(3,"mca",1000);
+insert into course values(4,"bca",2000),(5,"bba",700);
+insert into admission values(101,1,"s1"),
+(102,2,"s2"),
+(103,3,"s1");
+insert into admission values(104,4,"s1"),(105,5,"s2");
+select * from admission;
+select * from student;
+select * from course;
+#Q3)-----------
+create view  studentadmitted as select name,coursename from student,course,admission where  admission.rollno=student.rollno and admission.cid=course.cid having coursename ="mca";
+select * from studentadmitted;
+#Q4)------------
+select * from course,student,admission where admission.rollno=student.rollno and admission.cid=course.cid having rollno=105;
+#q5)--------------
+select count(*) as noofstud from course;
+
+
