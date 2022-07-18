@@ -1,0 +1,122 @@
+> use exam
+switched to db exam
+> db.createCollection("student")
+{ "ok" : 1 }
+> db.student.insert({_id:1,name:"anjali",place:"kollam",phone:8582639562,vaccination_status:"both vaccinated",RTPCR:"negative",lab_mark:[{internal:30},{external:45}],department:"MCA"})
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({_id:2,name:"anuradha",place:"varkala",phone:9992639562,vaccination_status:"both vaccinated",RTPCR:"negative",lab_mark:[{internal:40},{external:48}],department:"civil"})
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({_id:3,name:"Bismiya",place:"Kollam",phone:9446639562,vaccination_status:"not vaccinated",RTPCR:"positive",lab_mark:[{internal:50},{external:39}],department:"MCA"})
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({_id:4,name:"Vimal",place:"Ernakulam",phone:8582639568,vaccination_status:"first dose only",RTPCR:"positive",lab_mark:[{internal:40},{external:42}],department:"civil"})
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({_id:5,name:"Vivek",place:"Kollam",phone:8582639777,vaccination_status:"both vaccinated",RTPCR:"negative",lab_mark:[{internal:50},{external:50}],department:"MCA"})
+WriteResult({ "nInserted" : 1 })
+>
+> db.student.find().pretty()
+{
+        "_id" : 1,
+        "name" : "anjali",
+        "place" : "kollam",
+        "phone" : 8582639562,
+        "vaccination_status" : "both vaccinated",
+        "RTPCR" : "negative",
+        "lab_mark" : [
+                {
+                        "internal" : 30
+                },
+                {
+                        "external" : 45
+                }
+        ],
+        "department" : "MCA"
+}
+{
+        "_id" : 2,
+        "name" : "anuradha",
+        "place" : "varkala",
+        "phone" : 9992639562,
+        "vaccination_status" : "both vaccinated",
+        "RTPCR" : "negative",
+        "lab_mark" : [
+                {
+                        "internal" : 40
+                },
+                {
+                        "external" : 48
+                }
+        ],
+        "department" : "civil"
+}
+{
+        "_id" : 3,
+        "name" : "Bismiya",
+        "place" : "Kollam",
+        "phone" : 9446639562,
+        "vaccination_status" : "not vaccinated",
+        "RTPCR" : "positive",
+        "lab_mark" : [
+                {
+                        "internal" : 50
+                },
+                {
+                        "external" : 39
+                }
+        ],
+        "department" : "MCA"
+}
+{
+        "_id" : 4,
+        "name" : "Vimal",
+        "place" : "Ernakulam",
+        "phone" : 8582639568,
+        "vaccination_status" : "first dose only",
+        "RTPCR" : "positive",
+        "lab_mark" : [
+                {
+                        "internal" : 40
+                },
+                {
+                        "external" : 42
+                }
+        ],
+        "department" : "civil"
+}
+{
+        "_id" : 5,
+        "name" : "Vivek",
+        "place" : "Kollam",
+        "phone" : 8582639777,
+        "vaccination_status" : "both vaccinated",
+        "RTPCR" : "negative",
+        "lab_mark" : [
+                {
+                        "internal" : 50
+                },
+                {
+                        "external" : 50
+                }
+        ],
+        "department" : "MCA"
+}
+
+Q3--------------------
+> db.student.find({vaccination_status:"both vaccinated"},{name:1,phone:1}).pretty()
+{ "_id" : 1, "name" : "anjali", "phone" : 8582639562 }
+{ "_id" : 2, "name" : "anuradha", "phone" : 9992639562 }
+{ "_id" : 5, "name" : "Vivek", "phone" : 8582639777 }
+>
+
+Q4)---------------------
+> db.student.find({department:"MCA"},{name:1,phone:1,_id:1}).limit(2).sort({"lab_mark":external=-1})
+{ "_id" : 5, "name" : "Vivek", "phone" : 8582639777 }
+{ "_id" : 3, "name" : "Bismiya", "phone" : 9446639562 }
+>
+
+
+Q5)-----------------------
+
+> db.student.find({name:{$regex:"^a"}},{_id:1,name:1,department:1}).pretty()
+{ "_id" : 1, "name" : "anjali", "department" : "MCA" }
+{ "_id" : 2, "name" : "anuradha", "department" : "civil" }
+>
